@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Landing Page</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #fff; /* Fundo branco */
+            height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+        #video-logo {
+            width: 100%;
+            max-width: 600px;
+            background-color: #fff; /* Fundo branco */
+            position: relative;
+            top: -5cm; /* Move o vídeo 5 cm para cima */
+        }
+        #pag {
+            display: none;
+            width: 100%; /* Ajusta a largura para preencher a tela */
+            height: auto; /* Mantém a proporção da imagem */
+            max-width: 480px; /* Largura máxima para simular a tela de celular */
+            position: absolute; /* Alinha a imagem no centro */
+            top: 50%; /* Centraliza verticalmente */
+            left: 50%; /* Centraliza horizontalmente */
+            transform: translate(-50%, -50%); /* Corrige a posição central da imagem */
+            z-index: 1; /* Garante que a imagem da página fique acima do fundo */
+        }
+        /* Estilo para o fundo de papel */
+        #background {
+            display: none; /* Inicialmente escondido */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('papel.png'); /* Define a imagem de fundo */
+            background-size: cover; /* A imagem vai cobrir toda a tela */
+            background-position: center; /* Centraliza a imagem */
+            z-index: 0; /* Fica atrás do conteúdo principal */
+        }
+        /* Estilo do botão do WhatsApp */
+        .whatsapp-btn {
+            display: none; /* O botão começa invisível */
+            position: absolute;
+            top: 85%; /* Altere de 80% para 75% para subir o botão */
+            left: 50%; /* Centraliza o botão horizontalmente */
+            transform: translateX(-50%);
+            background-color: #25D366;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            padding: 12px 24px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 2; /* Garante que o botão fique acima de outros elementos */
+        }
+
+        .whatsapp-btn:hover {
+            background-color: #1EBE59;
+        }
+
+        /* Ajuste para o vídeo de Loteamento com largura de 400px e altura de 350px */
+        #loteamento-video {
+            display: none; /* Inicialmente escondido */
+            width: 400px; /* Largura fixa de 400px */
+            height: 190px; /* Altura fixa de 350px */
+            object-fit: cover; /* Ajusta o conteúdo do vídeo para cobrir a área sem distorcer */
+            background-color: #fff;
+            position: absolute;
+            top: 71%; /* Centraliza o vídeo verticalmente */
+            left: 50%; /* Centraliza o vídeo horizontalmente */
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fundo da página (papel.png) -->
+    <div id="background"></div>
+
+    <!-- Vídeo do logo -->
+    <video id="video-logo" autoplay muted >
+        <source src="logoA.mp4" type="video/mp4">
+        Seu navegador não suporta o formato de vídeo.
+    </video>
+
+    <!-- Imagem da página principal, agora centralizada -->
+    <img id="pag" src="pag.png" alt="Página Inicial">
+
+    <!-- Vídeo do Loteamento (Inicialmente escondido) -->
+    <video id="loteamento-video" autoplay muted>
+        <source src="Loteamento.mp4" type="video/mp4">
+        Seu navegador não suporta a tag de vídeo.
+    </video>
+
+    <!-- Botão do WhatsApp -->
+    <button class="whatsapp-btn" onclick="goToWhatsApp()">
+        Entre em Contato pelo WhatsApp
+    </button>
+
+    <script>
+        // Função para exibir o botão do WhatsApp e iniciar o vídeo do loteamento após o término do vídeo do logo
+        const videoLogo = document.getElementById("video-logo");
+        const loteamentoVideo = document.getElementById("loteamento-video");
+        const pagImage = document.getElementById("pag");
+
+        videoLogo.onended = function() {
+            // Quando o vídeo do logo acabar
+            videoLogo.style.display = "none"; // Esconde o vídeo do logo
+            pagImage.style.display = "block"; // Exibe a imagem principal
+            loteamentoVideo.style.display = "block"; // Exibe o vídeo do loteamento
+            document.getElementById("background").style.display = "block"; // Exibe o fundo
+            document.querySelector(".whatsapp-btn").style.display = "block"; // Exibe o botão do WhatsApp
+
+            // O vídeo do loteamento já deve estar começando automaticamente com o autoplay.
+        };
+
+        // Função para redirecionar para o WhatsApp
+        function goToWhatsApp() {
+            const phoneNumber = "11948029430"; // Número do WhatsApp
+            const url = `https://wa.me/${phoneNumber}`; // Link para abrir o WhatsApp
+            window.open(url, "_blank"); // Abre o link em uma nova aba
+        }
+    </script>
+
+</body>
+</html>
